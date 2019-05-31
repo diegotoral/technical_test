@@ -47,5 +47,29 @@ class LinesOverlapTest(unittest.TestCase):
 
         self.assertTrue(colinear_lines_overlap(a, b))
 
+    def test_is_correct_for_equal_lines(self):
+        a = (1, 3)
+        b = (1, 3)
+
+        self.assertTrue(colinear_lines_overlap(a, b))
+
+    def test_is_correct_for_lines_with_same_origin(self):
+        a = (1, 5)
+        b = (1, 3)
+
+        self.assertTrue(colinear_lines_overlap(a, b))
+
+    def test_is_correct_for_lines_that_share_end_and_start_points(self):
+        a = (1, 5)
+        b = (5, 10)
+
+        self.assertTrue(colinear_lines_overlap(a, b))
+
+    def test_is_correct_for_lines_of_a_single_point(self):
+        a = (0, 0)
+        b = (-5, 0)
+
+        self.assertTrue(colinear_lines_overlap(a, b))
+
 if __name__ == '__main__':
     unittest.main()

@@ -5,4 +5,4 @@ def colinear_lines_overlap(line1, line2):
     a, b = sorted(list(line1))
     c, d = sorted(list(line2))
 
-    return not((a > c and d < a) or (a < c and c > b))
+    return not((d < a) or (c > b))

@@ -28,7 +28,11 @@ You can create `Versionator::Version` objects in many ways. First, the old and g
 version = Versionator::Version.new '2.1'
 ```
 
-*versionator* can also extend `Object` to make it easier work with version objects.
+or by using helper functions on the same fashion as `Kernel.Array`
+
+```ruby
+Version('1.3')
+```
 
 ## Development
 

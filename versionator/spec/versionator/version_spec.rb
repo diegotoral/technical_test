@@ -1,6 +1,54 @@
 require 'spec_helper'
 
 RSpec.describe Versionator::Version do
+  describe '#major' do
+    it 'returns the integer representation for the major version' do
+      version = described_class.new '2'
+
+      expect(version.major).to eq(2)
+    end
+
+    context 'when not specified on the version' do
+      it 'default to zero' do
+        version = described_class.new ''
+
+        expect(version.major).to eq(0)
+      end
+    end
+  end
+
+  describe '#minor' do
+    it 'returns the integer representation for the minor version' do
+      version = described_class.new '2.1'
+
+      expect(version.minor).to eq(1)
+    end
+
+    context 'when not specified on the version' do
+      it 'default to zero' do
+        version = described_class.new '2'
+
+        expect(version.minor).to eq(0)
+      end
+    end
+  end
+
+  describe 'patch' do
+    it 'returns the integer representation for the patch' do
+      version = described_class.new '2.1.3'
+
+      expect(version.patch).to eq(3)
+    end
+
+    context 'when not specified on the version' do
+      it 'default to zero' do
+        version = described_class.new '2.2'
+
+        expect(version.patch).to eq(0)
+      end
+    end
+  end
+
   describe '#to_s' do
     it 'returns the string representation of the version' do
       version = described_class.new '2.1.5'
@@ -26,14 +74,6 @@ RSpec.describe Versionator::Version do
     end
   end
 
-  describe '#to_i' do
-    it 'returns an integer representation of the version' do
-      version = described_class.new '2.5.2'
-
-      expect(version.to_i).to eq 252
-    end
-  end
-
   describe '#<=>' do
     it 'returns zero when objects represent the same version' do
       version1 = described_class.new '0.1'
@@ -43,8 +83,8 @@ RSpec.describe Versionator::Version do
     end
 
     it 'returns positive one whtn receiver is greater than the other object' do
-      version1 = described_class.new '2'
-      version2 = described_class.new '1'
+      version1 = described_class.new '2.1'
+      version2 = described_class.new '1.1.1.1'
 
       expect(version1 <=> version2).to eq 1
     end

@@ -4,21 +4,28 @@ module Versionator
   class Version
     include Comparable
 
+    attr_reader :major, :minor, :patch
+
     def initialize(version)
-      @raw = version.to_s
-      @value = raw.gsub(/\./, '').to_i
+      @raw_version = version.to_s
+      @major, @minor, @patch = raw_version.split('.').map(&:to_i)
+      @major ||= 0
+      @minor ||= 0
+      @patch ||= 0
     end
 
     def <=>(other)
-      to_i <=> other.to_i
+      if major > other.major
+        return 1
+      elsif minor > other.minor
+        return -1
+      else
+        0
+      end
     end
 
     def to_s
-      raw.dup
-    end
-
-    def to_i
-      value
+      raw_version.dup
     end
 
     def to_version
@@ -27,6 +34,6 @@ module Versionator
 
     private
 
-    attr_reader :value, :raw
+    attr_reader :raw_version
   end
 end
